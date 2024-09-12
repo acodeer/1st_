@@ -1,8 +1,10 @@
-def print_damn():
-    print("Hello, World!")
-def print_KIT():
-    print("take me home contry road")
+def add(x,y);
+    a = x + y
+    return a
 
-if __name__ == "__main__":
-    print_hello();
-    print_KIT();
+def print_KIT():
+    print("KIT")
+
+if__name__=='__main__';
+    print_KIT()
+    print( print_hello(1,2) )
