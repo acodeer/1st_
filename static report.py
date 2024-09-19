@@ -11,11 +11,20 @@ floor = min(data)-unit/2  # 계급의 하한
 freq = [0] * no_c # 도수
 # 도수분포표 생성
 def draw_table(data, no_c, gap, floor):
-    for i in range(no_c):
-        for j in data:
-            if floor+gap*i <= j < floor+gap*(i+1):
-                freq[i] += 1
+    while True:
+        freq = [0] * no_c
+        c_freq = 0  # 누적도수
         
+        for i in range(no_c):
+            for j in data:
+                if floor + gap * i <= j < floor + gap * (i + 1):
+                    freq[i] += 1
+            c_freq += freq[i]
+        
+        if c_freq == len(data):
+            return freq, gap
+        else:
+            gap += 1
 #출력
 def print_table(freq, gap, floor):
     print(f"{'계급':<6} {'계급간격':<10} {'도수':<5} {'상대도수':<10} {'누적도수':<8} {'누적상대도수':<12} {'계급값':<5}")
@@ -38,7 +47,7 @@ def draw_hist(freq):
     print(' '*4 + ' '.join(f"{floor + (gap * i) + (gap / 2):>5.1f}" for i in range(no_c)))
 
 print('도수분포표 출력')
-draw_table(data, no_c, gap, floor)
+freq , gap = draw_table(data, no_c, gap, floor)
 print_table(freq, gap, floor)
 print('히스토그램 출력')
 draw_hist(freq)
