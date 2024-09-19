@@ -24,6 +24,7 @@ int* con_seg_tree(int arr[], int n)
     con_tree(arr, 0, n-1, seg_tree, 0);
     return seg_tree;
 }
+
 int query_sum(int *seg_tree, int start, int end, int qs, int qe, int current)
 {
     if(qs <= start && qe >= end)
@@ -38,13 +39,14 @@ int Get_query(int *seg_tree, int n, int qs, int qe)
 {
     if(qs < 0 || qe > n-1 || qs > qe)
     {
-        printf("Invalid Input");
+        printf("Invalid");
         return -1;
     }
     int sum= 0;
     sum = query_sum(seg_tree, 0, n-1, qs, qe, 0);
     return sum;
 }
+
 void seg_tree_update(int *seg_tree, int start, int end, int i, int value, int current)
 {
     if(i < start || i > end)
@@ -57,28 +59,28 @@ void seg_tree_update(int *seg_tree, int start, int end, int i, int value, int cu
         seg_tree_update(seg_tree, mid+1, end, i, value, 2*current+2);
     }
 }
-void get_value(int *seg_tree, int start, int end, int i, int current)
-{
-    if(i < start || i > end)
-        return;
-    
-}
+
 int main()
 {
     int arr[] = {21, 7, 8, 19, 2, 9, 6, 10};
     int n = sizeof(arr)/sizeof(arr[0]);
-    int *seg_tree = con_seg_tree(arr, n);
+    int *seg_tree = con_seg_tree(arr, n); //트리 생성
     int qs = 0;
-    int qe = 3;
-    printf("Sum of values in given range = %d\n", Get_query(seg_tree, n, qs, qe));
+    int qe = 7; //쿼리 범위
+    printf("original array\n");
     for(int i = 0; i < 15; i++)
     {
         printf("%d ", seg_tree[i]);
     }
     printf("\n");
-    seg_tree_update(seg_tree, 0, n-1, 3, 10, 0);
+    printf("range sum query %d ~ %d\n", qs, qe);
+    printf("Sum of value = %d\n", Get_query(seg_tree, n, qs, qe));
+    seg_tree_update(seg_tree, 0, n-1, 5, 6, 0);
+    printf("after update\n");
     for(int i = 0; i < 15; i++)
     {
         printf("%d ", seg_tree[i]);
     }
+    printf("\n");
+    printf("Sum of value = %d\n", Get_query(seg_tree, n, qs, qe));
 }
